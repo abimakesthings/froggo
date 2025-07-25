@@ -1,0 +1,3 @@
+import RPi.GPIO as GPIO
+
+BUTTON_PIN = 16
