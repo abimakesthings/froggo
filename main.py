@@ -1,20 +1,16 @@
 from gpiozero import Button
-from picamera import PiCamera
+from time import sleep
 from datetime import datetime
-from signal import pause
 
 button = Button(16)
-camera = PiCamera()
+
+has_printed = False
 
 while True:
-    if button.is_pressed:
-        print("Button is pressed")
-    else:
-        print("Button is not pressed")
-
-def capture():
-    camera.capture(f'/home/pi/{datetime.now():%Y-%m-%d-%H-%M-%S}.jpg')
-
-button.when_pressed = capture
-
-pause()
+    if button.is_pressed and not has_printed: #to trigger only once per press
+        print("Button was pressed")
+        has_printed = True
+        sleep(0.2) #delay to avoid multiple button presses
+    elif not button.is_pressed and has_printed:
+        has_printed = False
+    sleep(0.01) #avoid CPU dying
