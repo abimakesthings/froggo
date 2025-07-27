@@ -1,14 +1,18 @@
 from gpiozero import Button
 from time import sleep
+from picamera2 import Picamera2
+from datetime import datetime
 
 button = Button(16)
-
+camera = Picamera2()
+camera.start()
 has_printed = False
 
 while True:
     if button.is_pressed and not has_printed: #to trigger only once per press
         print("Button was pressed")
         has_printed = True
+        camera.capture_file(f"/home/abi/Documents/Froggo/images/{datetime.now():%Y-%m-%d-%H-%M-%S}.jpg")
         sleep(0.2) #delay to avoid multiple button presses
     elif not button.is_pressed and has_printed:
         has_printed = False
