@@ -1,6 +1,5 @@
 from gpiozero import Button
 from time import sleep
-from datetime import datetime
 
 button = Button(16)
 
