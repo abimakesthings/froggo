@@ -5,7 +5,7 @@ button = Button(16)
 has_printed = False
 
 while True:
-    if button.is_pressed and not has_printed:
+    if button.is_pressed and not has_printed: #to trigger only once per press
         print("Button was pressed")
         has_printed = True
         sleep(0.2) #delay to avoid multiple button presses
