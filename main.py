@@ -10,10 +10,15 @@ has_printed = False
 
 while True:
     if button.is_pressed and not has_printed: #to trigger only once per press
-        print("Button was pressed")
         has_printed = True
-        camera.capture_file(f"/home/abi/Documents/Froggo/images/{datetime.now():%Y-%m-%d-%H-%M-%S}.jpg")
-        sleep(0.2) #delay to avoid multiple button presses
+        print("Button was pressed")
+        photo_id = datetime.now()
+        sleep(3) #countdown will go here
+        camera.capture_file(f"images/{photo_id:%Y-%m-%d-%H-%M-%S}_01.jpg")
+        sleep(3) #countdown will go here
+        camera.capture_file(f"images/{photo_id:%Y-%m-%d-%H-%M-%S}_02.jpg")
+        sleep(3) #countdown will go here
+        camera.capture_file(f"images/{photo_id:%Y-%m-%d-%H-%M-%S}_03.jpg")
+        print("3 pictures captured")
     elif not button.is_pressed and has_printed:
         has_printed = False
-    sleep(0.01) #avoid CPU dying
