@@ -1,18 +1,23 @@
-from gpiozero import Button
+from gpiozero import Button, LED
 from time import sleep
 from picamera2 import Picamera2,  Preview
 from datetime import datetime
 #from PIL import Image
 from photostrip import merge
 
-button = Button(16)
+button = Button(21) #aracade button
+led = LED(12) #arcade LED
 camera = Picamera2()
-camera.configure(camera.create_still_configuration())
+camera.configure(camera.create_still_configuration(main={"size": (640, 480)})) #must call before capturing
 camera.start()
+
+#initial states
 has_printed = False
+led.on()
 
 while True:
     if button.is_pressed and not has_printed: #to trigger only once per press
+        led.off()
         has_printed = True
         print("Button was pressed")
         photo_id = datetime.now()
@@ -30,8 +35,9 @@ while True:
         camera.capture_file(picture_3)
         print("Picture 3 captured")
         photostrip = merge(picture_1, picture_2, picture_3)
-        photostrip.save(f"images/{timestamp}_photostrip.png")
+        photostrip.save(f"images/{timestamp}_photostrip.bmp")
         print("Photostrip created")
         
     elif not button.is_pressed and has_printed:
         has_printed = False
+        led.on()
