@@ -1,4 +1,5 @@
 from PIL import Image, ImageEnhance
+
 #stack the 3 images vertically into one photostrip
 def merge(im1, im2, im3, im4) -> Image.Image: #importing image paths
     im1 = Image.open(im1)
@@ -20,6 +21,6 @@ def merge(im1, im2, im3, im4) -> Image.Image: #importing image paths
     im = im.resize((384, int(im.height * 384 / im.width))) #resize image to fit printer
     im = ImageEnhance.Contrast(im).enhance(1.2)
     im = ImageEnhance.Brightness(im).enhance(1.05)
-    im = im.convert("1", dither=Image.Dither.FLOYDSTEINBERG) #dithering for thermal printing
+    im = im.convert("1", dither=Image.FLOYDSTEINBERG) #dithering for thermal printing
 
     return im
