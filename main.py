@@ -33,6 +33,7 @@ while True:
         picture_1 = f"images/{timestamp}_01.jpg"
         picture_2 = f"images/{timestamp}_02.jpg"
         picture_3 = f"images/{timestamp}_03.jpg"
+        picture_4 = f"images/{timestamp}_04.jpg"
         sleep(3) #countdown will go here
         camera.capture_file(picture_1)
         print("Picture 1 captured")
@@ -42,7 +43,9 @@ while True:
         sleep(3) #countdown will go here
         camera.capture_file(picture_3)
         print("Picture 3 captured")
-        photostrip = merge(picture_1, picture_2, picture_3)
+        camera.capture_file(picture_4)
+        print("Picture 4 captured")
+        photostrip = merge(picture_1, picture_2, picture_3, picture_4)
         photostrip.save(f"images/{timestamp}_photostrip.png")
         print("Photostrip created")
         p = File(devfile="/dev/usb/lp0")
