@@ -6,6 +6,7 @@ from datetime import datetime
 from photostrip import merge
 from display import display_text
 from take_picture import take_picture
+from show_picture import show_picture
 from escpos.printer import File
 from camera_config import camera_config, camera_preview, preview_and_countdown
 import pygame
@@ -42,22 +43,23 @@ while True:
         print("preview started")
         picture_1=take_picture(camera, timestamp, 1)
         print("Picture 1 captured")
+        #show_picture
         preview_and_countdown(camera, screen)
         picture_2=take_picture(camera, timestamp, 2)
         print("Picture 2 captured")
-        sleep(3)
+        #show_picture
         preview_and_countdown(camera, screen)
         picture_3=take_picture(camera, timestamp, 3)
         print("Picture 3 captured")
-        sleep(3) #countdown will go here
+        #show_picture
         preview_and_countdown(camera, screen)
         picture_4=take_picture(camera, timestamp, 4)
         print("Picture 4 captured")
+        #show_picture
         camera.stop()
         photostrip = merge(picture_1, picture_2, picture_3, picture_4)
         photostrip.save(f"images/{timestamp}_photostrip.png")
         print("Photostrip created")
-        pygame.display.init()
         display_text("Printing...",screen)
         #printer.image(f"images/{timestamp}_photostrip.png") #print
         camera.stop()
