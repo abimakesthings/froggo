@@ -1,6 +1,4 @@
 #Don't upload images to git
 
-images/
-images/
 images/*
 !images/.gitkeep
