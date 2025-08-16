@@ -9,7 +9,8 @@ from take_picture import take_picture
 from show_picture import show_picture
 from escpos.printer import File
 from camera_config import camera_config, camera_preview, preview_and_countdown
-import pygame
+from exit_photobooth import CornerHold
+import sys, pygame
 
 import os
 os.environ.setdefault("DISPLAY", ":0")
@@ -31,8 +32,15 @@ pygame.mixer.init()
 pygame.mouse.set_visible(False)
 printing_sound = pygame.mixer.Sound("sounds/printing.MP3")
 button_press_sound = pygame.mixer.Sound("sounds/button_press.MP3")
+escape = CornerHold(corner="TL", margin=60, hold_ms=3000)
+
 
 while True:
+    events = pygame.event.get()
+    if escape.update(events, screen.get_size()):
+        pygame.quit()
+        sys.exit(0)
+
     if button.is_pressed and not has_printed: #to trigger only once per press
         has_printed = True
         button_press_sound.play()
